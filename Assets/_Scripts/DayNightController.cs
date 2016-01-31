@@ -4,6 +4,10 @@ using System.Collections;
 public class DayNightController : MonoBehaviour {
     public Light sun;
     public Light moon;
+    public Color cloudColor;
+    public Color cloudMainColor;
+    public Color cloudSecondaryColor;
+    public CloudsToy.Type cloudType;
     public float secondsPerDay = 120f;
     [Range(0, 1)]
     public float currentTime = 0f;
@@ -17,6 +21,12 @@ public class DayNightController : MonoBehaviour {
 	void Start () {
         sunInitialIntensity = sun.intensity;
         moonInitialIntensity = sun.intensity;
+
+        CloudsToy cloudManager = GameObject.FindGameObjectWithTag("Clouds").GetComponent<CloudsToy>();
+        cloudManager.CloudColor = cloudColor;
+        cloudManager.MainColor = cloudMainColor;
+        cloudManager.SecondColor = cloudSecondaryColor;
+        cloudManager.TypeClouds = cloudType;
 	}
 	
 	// Update is called once per frame
