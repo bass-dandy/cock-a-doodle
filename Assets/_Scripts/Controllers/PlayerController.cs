@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private float jumpForceAir;
 
 	private Rigidbody rb;
+	private GameManager gm;
 
 	// Stored inputs from update
 	private float strafe;
@@ -17,8 +18,10 @@ public class PlayerController : MonoBehaviour {
 	private float yaw;
 	private bool isJumpDown;
 	private bool isEggDown;
+	private bool isPeckDown;
 
 	void Start () {
+		gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
 		rb = gameObject.GetComponent<Rigidbody> ();
 	}
 	
@@ -29,6 +32,7 @@ public class PlayerController : MonoBehaviour {
 		yaw        = Input.GetAxis ("Yaw");
 		isJumpDown = Input.GetButtonDown ("Jump");
 		isEggDown  = Input.GetButtonDown ("Egg");
+		isPeckDown = Input.GetButtonDown ("Peck");
 	}
 
 	void FixedUpdate() {
@@ -55,10 +59,13 @@ public class PlayerController : MonoBehaviour {
 			// Flap frantically in air
 			rb.AddRelativeForce (0, jumpForceAir, 0);
 		}
-
 		// Lay eggs
 		if (isEggDown) {
 			Instantiate (eggPrefab, transform.position, Quaternion.Euler(new Vector3(270, 0, 0)));
+		}
+		// Peck
+		if (isPeckDown && gm.CanEnterCar) {
+			gm.ToggleCar ();
 		}
 	}
 }
