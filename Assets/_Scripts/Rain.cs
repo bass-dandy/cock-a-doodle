@@ -1,14 +1,14 @@
 using UnityEngine;
 using System.Collections;
 
-public class Rain :MonoBehavior{
+public class Rain :MonoBehaviour{
 
 	public ParticleEmitter rain;
 
-	public boolean raining = false;
+	public bool raining = false;
 
 
-	funtion Start(){
+	void Start(){
         	while(true){
              		float percent = Random.value();
                 	if (percent >= 0.93f){
