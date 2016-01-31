@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour {
 		rb.angularVelocity = new Vector3 (0, turnVel, 0);
 
 		// Jump
-		if (isJumpDown && rb.velocity.y == 0) {
+		if (isJumpDown && rb.velocity.y <= 0.01f) {
 			// Jump from ground
 			rb.AddRelativeForce (0, jumpForceGround, 0);
 		} else if (isJumpDown) {
