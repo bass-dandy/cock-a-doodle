@@ -8,13 +8,13 @@ public class EventTrigger : MonoBehaviour {
 	public event Action OnPlayerExit;
 
 	void OnTriggerEnter(Collider other) {
-		if (other.tag == "Player") {
+		if (other != null && OnPlayerEnter != null && other.tag == "Player") {
 			OnPlayerEnter ();
 		}
 	}
 
 	void OnTriggerExit(Collider other) {
-		if (other.tag == "Player") {
+		if (other != null && OnPlayerExit != null && other.tag == "Player") {
 			OnPlayerExit ();
 		}
 	}
