@@ -5,7 +5,7 @@ public class DayNightController : MonoBehaviour {
     public Light sun;
     public float secondsPerDay = 120f;
     [Range(0, 1)]
-    public float currentTime = 0;
+    public float currentTime = 0.20f;
     [HideInInspector]
     public float timeMultiplier = 1f;
 
