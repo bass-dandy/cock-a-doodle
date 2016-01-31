@@ -8,6 +8,8 @@ public class CarController : MonoBehaviour {
 
 	[SerializeField] private float engineTorque;
 	[SerializeField] private float steerCoefficient;
+	[SerializeField] private GameObject leftHeadlight;
+	[SerializeField] private GameObject rightHeadlight;
 
 	private bool isOn = false;
 
@@ -23,9 +25,13 @@ public class CarController : MonoBehaviour {
 
 	public void TurnOn() {
 		isOn = true;
+		leftHeadlight.SetActive (true);
+		rightHeadlight.SetActive (true);
 	}
 
 	public void TurnOff() {
 		isOn = false;
+		leftHeadlight.SetActive (false);
+		rightHeadlight.SetActive (false);
 	}
 }

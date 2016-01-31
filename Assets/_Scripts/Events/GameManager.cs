@@ -10,7 +10,10 @@ public class GameManager : MonoBehaviour {
 
 	private GameObject player;
 
-	private bool canEnterCar;
+	private bool canEnterCar = false;
+	private bool canActivateDish = true;
+
+	[SerializeField] private GameObject abduction;
 
 	public bool CanEnterCar {
 		get { return canEnterCar; }
@@ -50,8 +53,11 @@ public class GameManager : MonoBehaviour {
 			car.TurnOff ();
 		}
 	}
-	
-	void Update () {
-	
+
+	public void ActivateDish() {
+		if (canActivateDish) {
+			canActivateDish = false;
+			abduction.SetActive(true);
+		}
 	}
 }

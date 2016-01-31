@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private float angularSpeed;
 	[SerializeField] private float jumpForceGround;
 	[SerializeField] private float jumpForceAir;
+	[SerializeField] private GameObject peckTrigger;
 
 	private Rigidbody rb;
 	private GameManager gm;
@@ -66,6 +67,10 @@ public class PlayerController : MonoBehaviour {
 		// Peck
 		if (isPeckDown && gm.CanEnterCar) {
 			gm.ToggleCar ();
+		} else if (Input.GetButton("Peck")) {
+			peckTrigger.SetActive (true);
+		} else {
+			peckTrigger.SetActive (false);
 		}
 	}
 }
