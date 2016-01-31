@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private float angularSpeed;
 	[SerializeField] private float jumpForceGround;
 	[SerializeField] private float jumpForceAir;
+	[SerializeField] private GameObject peckTrigger;
 
 	private Rigidbody rb;
 	private GameManager gm;
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour {
 	private bool isJumpDown;
 	private bool isEggDown;
 	private bool isPeckDown;
+	private bool isBockDown;
 
 	void Start () {
 		gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
@@ -33,6 +35,7 @@ public class PlayerController : MonoBehaviour {
 		isJumpDown = Input.GetButtonDown ("Jump");
 		isEggDown  = Input.GetButtonDown ("Egg");
 		isPeckDown = Input.GetButtonDown ("Peck");
+		isBockDown = Input.GetButtonDown ("Bock");
 	}
 
 	void FixedUpdate() {
@@ -52,7 +55,7 @@ public class PlayerController : MonoBehaviour {
 		rb.angularVelocity = new Vector3 (0, turnVel, 0);
 
 		// Jump
-		if (isJumpDown && rb.velocity.y == 0) {
+		if (isJumpDown && rb.velocity.y <= 0.01f) {
 			// Jump from ground
 			rb.AddRelativeForce (0, jumpForceGround, 0);
 		} else if (isJumpDown) {
@@ -66,6 +69,14 @@ public class PlayerController : MonoBehaviour {
 		// Peck
 		if (isPeckDown && gm.CanEnterCar) {
 			gm.ToggleCar ();
+		} else if (Input.GetButton("Peck")) {
+			peckTrigger.SetActive (true);
+		} else {
+			peckTrigger.SetActive (false);
+		}
+		// Bock
+		if (isBockDown) {
+			gm.EndGame ();
 		}
 	}
 }
