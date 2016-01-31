@@ -29,9 +29,13 @@ public class PigController : MonoBehaviour {
 	}
 
 	IEnumerator WalkToTgt() {
-		while (tgt != null /*&& Vector3.Distance (transform.position, tgt.transform.position) < eatDistance*/) {
+		while (tgt != null && Vector3.Distance (transform.position, tgt.transform.position) > eatDistance) {
 			transform.position = Vector3.MoveTowards (transform.position, tgt.transform.position, walkSpeed * Time.deltaTime);
 			yield return null;
+		}
+		if (tgt != null) {
+			Destroy (tgt);
+			tgt = null;
 		}
 	}
 }
