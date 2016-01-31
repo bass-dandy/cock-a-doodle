@@ -22,7 +22,7 @@ public class Fading :MonoBehaviour{
     IEnumerator Start(){
 	GetComponent<AudioSource>().clip = current_track;
     	GetComponent<AudioSource>().Play();
-
+	yield return null;
     }
             
    
