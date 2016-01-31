@@ -7,6 +7,7 @@ public class Rain :MonoBehaviour{
 	public bool raining = false;
 	public float secs = 0.0f;
 
+	[SerializeField] private float probability;
 
 	void Start(){
 		rain.emit = false;
@@ -21,7 +22,7 @@ public class Rain :MonoBehaviour{
 	void Update(){
 		if(!(raining)){
 			float percent = Random.value;
-			if(percent >= 0.99995f){
+			if(percent >= probability){
 				secs = 120.0f;
 				rain.emit = true;
 				raining = true;

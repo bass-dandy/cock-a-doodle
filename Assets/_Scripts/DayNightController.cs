@@ -22,16 +22,18 @@ public class DayNightController : MonoBehaviour {
         sunInitialIntensity = sun.intensity;
         moonInitialIntensity = sun.intensity;
 
+		/*
         CloudsToy cloudManager = GameObject.FindGameObjectWithTag("Clouds").GetComponent<CloudsToy>();
         cloudManager.CloudColor = cloudColor;
         cloudManager.MainColor = cloudMainColor;
         cloudManager.SecondColor = cloudSecondaryColor;
         cloudManager.TypeClouds = cloudType;
+        */
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        sun.transform.rotation = Quaternion.Euler((currentTime * 360f) - 90, 180, 0);    // Rotates the sun and moon
+		sun.transform.rotation = Quaternion.Euler((currentTime * 360f) - 90, sun.transform.rotation.eulerAngles.y, 0);    // Rotates the sun and moon
 
         updateIntensity();
 
