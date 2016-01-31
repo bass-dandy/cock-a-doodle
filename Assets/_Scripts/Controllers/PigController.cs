@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PigController : MonoBehaviour {
 
@@ -7,35 +8,35 @@ public class PigController : MonoBehaviour {
 	[SerializeField] private float walkSpeed;
 	[SerializeField] private float eatDistance;
 
-	private GameObject tgt;
+	private Queue<GameObject> tgts;
+
+	void Start() {
+		tgts = new Queue<GameObject> ();
+	}
 
 	void OnTriggerEnter(Collider other) {
-		if (other.tag == "Yolk" && tgt == null) {
-			tgt = other.gameObject;
-			StartCoroutine (FaceTgt());
+		if (other.tag == "Yolk") {
+			tgts.Enqueue(other.gameObject);
 		}
 	}
 
-	IEnumerator FaceTgt() {
-		// Use our own y-position so we dont look up or down
-		Vector3 tgtPosition = new Vector3 (tgt.transform.position.x, transform.position.y, tgt.transform.position.z);
-		Quaternion tgtRotation = Quaternion.LookRotation (tgtPosition, transform.up);
+	void Update() {
+		if (tgts.Count > 0) {
+			GameObject tgt = tgts.Peek ();
 
-		while (tgt != null && Quaternion.Angle(transform.rotation, tgtRotation) > 1f) {
-			transform.rotation = Quaternion.RotateTowards (transform.rotation, tgtRotation, turnSpeed * Time.deltaTime);
-			yield return null;
-		}
-		StartCoroutine (WalkToTgt());
-	}
+			// Use our own y-position so we dont look up or down
+			Vector3 tgtPosition = new Vector3 (tgt.transform.position.x, transform.position.y, tgt.transform.position.z);
+			Quaternion tgtRotation = Quaternion.LookRotation (tgtPosition, transform.up);
 
-	IEnumerator WalkToTgt() {
-		while (tgt != null && Vector3.Distance (transform.position, tgt.transform.position) > eatDistance) {
-			transform.position = Vector3.MoveTowards (transform.position, tgt.transform.position, walkSpeed * Time.deltaTime);
-			yield return null;
-		}
-		if (tgt != null) {
-			Destroy (tgt);
-			tgt = null;
+			if (Quaternion.Angle(transform.rotation, tgtRotation) > 1f) {
+				transform.rotation = Quaternion.RotateTowards (transform.rotation, tgtRotation, turnSpeed * Time.deltaTime);
+			}
+			else if (Vector3.Distance (transform.position, tgt.transform.position) > eatDistance) {
+				transform.position = Vector3.MoveTowards (transform.position, tgt.transform.position, walkSpeed * Time.deltaTime);
+			}
+			else {
+				Destroy (tgts.Dequeue());
+			}
 		}
 	}
 }
