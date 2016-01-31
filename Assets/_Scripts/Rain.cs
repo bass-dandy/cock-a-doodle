@@ -12,11 +12,11 @@ public class Rain :MonoBehaviour{
 	void Start(){
 		rain.emit = false;
 		float percent = Random.value;
-             	if (percent >= 0.99995f){
+		if (percent >= probability){
 			rain.emit = true;
 			Clock(120.0f);
 			rain.emit = false;
-       		 }	
+       	}	
 	}
 
 	void Update(){

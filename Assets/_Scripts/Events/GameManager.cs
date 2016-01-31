@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour {
 		if (canEndGame) {
 			player.GetComponent<Rigidbody> ().isKinematic = true;
 			playerCamera.GetComponent<CameraController> ().LerpTransform (endGameCameraPos);
+			gameObject.GetComponent<AudioSource> ().Play ();
 			StartCoroutine (FadeInText());
 		}
 	}

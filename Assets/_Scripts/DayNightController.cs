@@ -31,7 +31,7 @@ public class DayNightController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		sun.transform.rotation = Quaternion.Euler((currentTime * 360f) - 90, 180, 0);    // Rotates the sun and moon
+		sun.transform.rotation = Quaternion.Euler((currentTime * 360f) - 90, transform.rotation.eulerAngles.y, 0);    // Rotates the sun and moon
 
         updateIntensity();
 
