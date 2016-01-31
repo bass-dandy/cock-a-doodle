@@ -50,11 +50,14 @@ public class DayNightController : MonoBehaviour {
         // Sunrise
         } else if (timeOfDay() == 1) {
             sunMultiplier = Mathf.Clamp01((currentTime - 0.23f) * (1 / 0.02f));
-            moonMultiplier = Mathf.Clamp01(1 - ((currentTime - 0.23f) * (1 / 0.02f)));
+            moonMultiplier = Mathf.Clamp01(1 - ((currentTime - 0.23f) * (1 / 0.04f)));
         // Sunset
         } else if (timeOfDay() == 2) {
             sunMultiplier = Mathf.Clamp01(1 - ((currentTime - 0.73f) * (1 / 0.02f)));
-            moonMultiplier = Mathf.Clamp01((currentTime - 0.73f) * (1 / 0.02f));
+            moonMultiplier = Mathf.Clamp01((currentTime - 0.73f) * (1 / 0.04f));
+        // Day time
+        } else {
+            moonMultiplier = 0;
         }
 
         sun.intensity = sunInitialIntensity * sunMultiplier;
